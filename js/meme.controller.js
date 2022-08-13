@@ -81,10 +81,9 @@ function renderModal(){
             <button class="buttons download" href="#" onclick="downloadCanvas(this)" download="cool-canvas">Download</button>
             <button class="buttons" onClick="renderModalTwo()">Share</button>
             <div class="inputs">
-                <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" />
-                <button class="btn" onclick="uploadImg()">Upload Image from Canvas</button>
-                <p class="user-msg"></p>
-            <div class="share-container"></div>
+    <input type="file" class="buttons file-input" name="image" onchange="onImgInput(event)" />
+    <p class="user-msg"></p>
+    <div class="share-container"></div>
 </div>                        
         </div>
 

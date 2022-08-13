@@ -61,9 +61,9 @@ function drawTextUp() {
     var textWidth = gCtx.measureText(gTxtUp).width;
     gCtx.lineWidth = 1;
     // gCtx.fillText(gTxt, gTxtHeight.x, gTxtHeight.y);
-    gCtx.fillText(gTxtUp,(750/2) , 100 + gMoveLineUp,450);
+    gCtx.fillText(gTxtUp,(500/2) , 100 + gMoveLineUp,450);
     gCtx.strokeStyle = gColor;
-    gCtx.strokeText(gTxtUp,(750/2) , 100 + gMoveLineUp,450);
+    gCtx.strokeText(gTxtUp,(500/2) , 100 + gMoveLineUp,450);
     gCtx.closePath()
     gFirstSubmitUp = false
     // gCtx.textBaseline ='middle'
@@ -77,14 +77,6 @@ function onChangeKey(){
 }
 
 function drawTextDown() {
-    if(gFirstSubmitDown === false && gFirstSubmitUp === false){
-        // // window.history.back()
-        // clearCanvas();
-        // drawImg2();
-        // gFirstSubmitDown = true;
-        // return
-    }
-
     gCtx.beginPath();
     gCtx.textBaseline = 'middle';
     gCtx.textAlign = 'center';
@@ -92,14 +84,11 @@ function drawTextDown() {
     gCtx.fillStyle = gFillColor;
     var textWidth = gCtx.measureText(gTxtDown).width;
     gCtx.lineWidth = 1;
-    // gCtx.fillText(gTxt, gTxtHeight.x, gTxtHeight.y);
-    gCtx.fillText(gTxtDown,(750/2) , 650 + gMoveLineDown,450);
+    gCtx.fillText(gTxtDown,(500/2) , 400 + gMoveLineDown,450);
     gCtx.strokeStyle = gColor;
-    gCtx.strokeText(gTxtDown,(750/2), 650 + gMoveLineDown,450);
+    gCtx.strokeText(gTxtDown,(500/2), 400 + gMoveLineDown,450);
     gCtx.closePath()
     gFirstSubmitDown = false
-    // gCtx.textBaseline ='middle'
-    // gCtx.textAlign  = 'center'
 }
 
 function downloadCanvas(elLink) {
@@ -180,7 +169,7 @@ function drawImg2() {
     var img = new Image();
     img.src = `img/meme-imgs-sq/${gCurrImg}.jpg`;
     img.onload = () => {
-        gCtx.drawImage(img, 0, 0, 750, 750);
+        gCtx.drawImage(img, 0, 0, 500, 500);
     };
     // gCtx.save()
 }
@@ -311,10 +300,12 @@ function openCanvas(){
 function renderModalTwo() {
     const strHTML = `
         <div class="adjust-rating">
-          <button>share on FB</button>
-          <button >+</button>
+        <button class="buttons" onclick="uploadImg()">Upload Image from Canvas</button>
+
+        <button class="buttons download" onclick="downloadCanvas(this)" download="cool-canvas">Download</button>
+          <button class="buttons" >+</button>
         </div>
-        <button class="action-btn" onclick="onCloseModal()">Close</button>
+        <button class="buttons" onclick="onCloseModal()">Close</button>
       `
   
     var elModal = document.querySelector('.modal')
@@ -351,7 +342,7 @@ function uploadImg() {
         document.querySelector('.user-msg').innerText = `Your photo is available here: ${uploadedImgUrl}`
 
         document.querySelector('.share-container').innerHTML = `
-        <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+        <a class="buttons" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
            Share   
         </a>`
     }
@@ -395,7 +386,7 @@ function loadImageFromInput(ev, onImageReady) {
 }
 
 function renderImg(img) {
-    gCtx.drawImage(img, 0, 0, 750, 750);
+    gCtx.drawImage(img, 0, 0, 500, 500);
 }
 
 function resizeCanvas() {
