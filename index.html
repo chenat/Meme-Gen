@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>memGen</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body onload="init()">
+    <header  class="main-header-container full main-layout">
+        <div class="main-header flex space-between align-center">
+            <div class="logo main-logo">Meme-Gen<span class="logo-dot">.</span></div>
+            <nav class="main-nav">
+                <ul class="main-nav-list flex clean-list">
+                    <li class="flex align-center"><a class="nav-buttons" href="#">Gallery</a></li>
+                    <li class="flex align-center"><a class="nav-buttons" href="#">Memes</a></li>
+                    <li class="flex align-center"><a class="nav-buttons" href="#">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="grid">
+    </div>
+
+</body>
+<div class="modal"></div>
+<div class="saved-memes grid"></div>
+
+
+<script src="js/main.js"></script>
+<script src="js/meme.controller.js"></script>
+<script src="js/services/canvas.service.js"></script>
+
+
+</html>
