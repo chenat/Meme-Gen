@@ -6,13 +6,14 @@ var gFillColor = 'black';
 var gShapeSize = 35;
 var gTxtDown = 'default';
 var gTxtUp = 'default';
-var gTxtHeight = {x:180,y:100};
+var gTxtHeight = { x: 180, y: 100 };
 var gCurrImg;
 var gFont = 'david';
 var gFirstSubmitUp = true;
 var gFirstSubmitDown = true;
 var gMoveLineUp = 0;
 var gMoveLineDown = 0;
+var gUploadImg = false
 
 function init() {
     renderMeme();
@@ -21,59 +22,54 @@ function init() {
     console.log('ctx', gCtx);
 }
 
-function initCanvas(){
+function initCanvas() {
     gElCanvas = document.querySelector('#my-canvas');
     gCtx = gElCanvas.getContext('2d');
 }
 
-function onEnterTextUp(txt){
+function onEnterTextUp(txt) {
     gTxtDown = txt.value;
-    drawTextUp()
-    // if(gTxt.length * gShapeSize > 200){
-        
-    // }
-    
+    clearCanvas()
+    drawImg2()
 }
 
-function onEnterTextDown(txt){
+function onEnterTextDown(txt) {
     gTxtUp = txt.value;
-    drawTextDown()
-    // if(gTxt.length * gShapeSize > 200){
-        
-    // }
-    
+    clearCanvas()
+    drawImg2()
 }
 
 function drawTextUp() {
-    if(gFirstSubmitUp === false){
-        // // window.history.back()
-        // clearCanvas();
-        // drawImg2();
-        // gFirstSubmitUp = true;
-        // return
-    }
-
+    // if(gFirstSubmitUp === false){
+    //     gFirstSubmitUp = true;
+    //     drawImg2();
+    //     clearCanvas();
+    //     console.log('helo')
+    //     if(gTxtDown !== 'default'){
+    //         drawTextDown()
+    //     }
+    //     setTimeout(drawTextUp(),1)
+    // }
     gCtx.beginPath();
     gCtx.textBaseline = 'middle';
-    gCtx.textAlign = 'justify';
+    gCtx.textAlign = 'center';
     gCtx.font = gShapeSize + 'px ' + gFont;
     gCtx.fillStyle = gFillColor;
     var textWidth = gCtx.measureText(gTxtUp).width;
+    if(textWidth > 440){
+        return
+    }
     gCtx.lineWidth = 1;
-    // gCtx.fillText(gTxt, gTxtHeight.x, gTxtHeight.y);
-    gCtx.fillText(gTxtUp,(500/2) , 100 + gMoveLineUp,450);
+    gCtx.fillText(gTxtUp, (gElCanvas.width / 2), 100 + gMoveLineUp, 450);
     gCtx.strokeStyle = gColor;
-    gCtx.strokeText(gTxtUp,(500/2) , 100 + gMoveLineUp,450);
+    gCtx.strokeText(gTxtUp, (gElCanvas.width / 2), 100 + gMoveLineUp, 450);
     gCtx.closePath()
     gFirstSubmitUp = false
-    // gCtx.textBaseline ='middle'
-    // gCtx.textAlign  = 'center'
 }
 
-function onChangeKey(){
+function onChangeKey() {
     clearCanvas();
     drawImg2();
-
 }
 
 function drawTextDown() {
@@ -83,10 +79,13 @@ function drawTextDown() {
     gCtx.font = gShapeSize + 'px ' + gFont;
     gCtx.fillStyle = gFillColor;
     var textWidth = gCtx.measureText(gTxtDown).width;
+    if(textWidth > 440){
+        return
+    }
     gCtx.lineWidth = 1;
-    gCtx.fillText(gTxtDown,(500/2) , 400 + gMoveLineDown,450);
+    gCtx.fillText(gTxtDown, (gElCanvas.width / 2), 400 + gMoveLineDown, 450);
     gCtx.strokeStyle = gColor;
-    gCtx.strokeText(gTxtDown,(500/2), 400 + gMoveLineDown,450);
+    gCtx.strokeText(gTxtDown, (gElCanvas.width / 2), 400 + gMoveLineDown, 450);
     gCtx.closePath()
     gFirstSubmitDown = false
 }
@@ -96,35 +95,36 @@ function downloadCanvas(elLink) {
     elLink.href = data;
     const a = document.createElement('a')
     a.href = data;
-    // a.download = '#my-canvas';
     a.download = data.split('/').pop()
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
 }
 
-function onChangeColor(){
+function onChangeColor() {
     let elColor = document.getElementById('color').value
     gColor = `${elColor}`
 }
 
-function onChangeFillColor(){
+function onChangeFillColor() {
     let elColor = document.getElementById('fill-color').value
     gFillColor = `${elColor}`
 }
 
-function growShapeSize(){
-    if(gShapeSize === 75){
+function growShapeSize() {
+    if (gShapeSize === 75) {
         return
     }
     gShapeSize += 5;
+    drawImg2()
 }
 
-function shrinkShapeSize(){
-    if(gShapeSize === 10){
+function shrinkShapeSize() {
+    if (gShapeSize === 10) {
         return
     }
     gShapeSize -= 5;
+    drawImg2()
 }
 
 function setShape(shape) {
@@ -138,56 +138,86 @@ function draw(ev) {
     console.log(ev.offsetX, ev.offsetY)
     switch (gCurrShape) {
         case 'a':
-            drawChar('a',offsetX,offsetY);
+            drawChar('a', offsetX, offsetY);
             break;
         case 'b':
-            drawChar('b',offsetX,offsetY);
+            drawChar('b', offsetX, offsetY);
             break;
         case 'c':
-            drawChar('c',offsetX,offsetY);
+            drawChar('c', offsetX, offsetY);
             break;
         case 'd':
-            drawChar('d',offsetX,offsetY);
-            break;               
+            drawChar('d', offsetX, offsetY);
+            break;
         case 'e':
-            drawChar('e',offsetX,offsetY);
+            drawChar('e', offsetX, offsetY);
             break;
         case 'f':
-            drawChar('f',offsetX,offsetY);
+            drawChar('f', offsetX, offsetY);
             break;
         case 'g':
-            drawChar('g',offsetX,offsetY);
+            drawChar('g', offsetX, offsetY);
             break;
         case 'h':
-            drawChar('h',offsetX,offsetY);
-            break;                  
+            drawChar('h', offsetX, offsetY);
+            break;
+        case 'i':
+            drawChar('i', offsetX, offsetY);
+            break;
+        case 'j':
+            drawChar('j', offsetX, offsetY);
+            break;
+        case 'k':
+            drawChar('k', offsetX, offsetY);
+            break;
+        case 'l':
+            drawChar('l', offsetX, offsetY);
+            break;
+        case 'm':
+            drawChar('m', offsetX, offsetY);
+            break;
     }
+}
 
+function drawImg1() {
+    var img = new Image();
+    img.src = `img/meme-imgs-sq/${gCurrImg}.jpg`;
+    img.onload = () => {
+        gCtx.drawImage(img, 0, 0, gElCanvas.width,  gElCanvas.height,);
+        drawTextUp()
+        drawTextDown()
+    };
 }
 
 function drawImg2() {
     var img = new Image();
     img.src = `img/meme-imgs-sq/${gCurrImg}.jpg`;
     img.onload = () => {
-        gCtx.drawImage(img, 0, 0, 500, 500);
+        gCtx.drawImage(img, 0, 0, gElCanvas.width,  gElCanvas.height,);
+        drawTextUp()
+        drawTextDown()
     };
-    // gCtx.save()
 }
 
-function updateId(value){
+function updateId(value) {
     console.log(value)
     gCurrImg = value;
-    renderModal(value);
+    // renderModal(value);
     initCanvas();
     drawImg2();
-    
 }
 
-function onChangeFont(value){
+function onChangeFont(value,className) {
     gFont = value;
+    toggleSelectFont(value,className)
+    drawImg2()
 }
 
-function getMeme(){
+function toggleSelectFont(value,className){
+    document.querySelector(`.${className}`).style.fontFamily =`${value} , sans sans-serif`
+}
+
+function getMeme() {
 
 }
 
@@ -195,39 +225,15 @@ function clearCanvas() {
     gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height);
 }
 
-
-var gStartPos
-
-
 /* */
 
 function addListeners() {
     addMouseListeners()
     addTouchListeners()
-    window.addEventListener('resize', () => {
-        // resizeCanvas()
-        const center = { x: 600 / 2, y: 600 / 2 }
-        createCircle(center)
-        renderCanvas()
-    })
 }
 
-// function addMouseListeners() {
-//     gElCanvas.addEventListener('mousemove', onMove)
-//     gElCanvas.addEventListener('mousedown', onDown)
-//     gElCanvas.addEventListener('mouseup', onUp)
-// }
-
-// function addTouchListeners() {
-//     gElCanvas.addEventListener('touchmove', onMove)
-//     gElCanvas.addEventListener('touchstart', onDown)
-//     gElCanvas.addEventListener('touchend', onUp)
-// }
-
 function onDown(ev) {
-    // Getting the clicked position
     const pos = getEvPos(ev)
-    // { x: 15, y : 15 }
     if (!isCircleClicked(pos)) return
     setCircleDrag(true)
     gStartPos = pos
@@ -244,46 +250,42 @@ function getEvPos(ev) {
         x: ev.offsetX,
         y: ev.offsetY
     }
-    // const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
-    // if (gTouchEvs.includes(ev.type)) {
-    //     ev.preventDefault()
-    //     ev = ev.changedTouches[0]
-    //     pos = {
-    //         x: ev.pageX - ev.target.offsetLeft,
-    //         y: ev.pageY - ev.target.offsetTop
-    //     }
-    // }
     return pos
 }
 
-function moveTextUpUpper(){
+function moveTextUpUpper() {
     gMoveLineUp -= 5
+    drawImg2()
 }
 
-function moveTextUpLower(){
+function moveTextUpLower() {
     gMoveLineDown -= 5
+    drawImg2()
 }
 
-function moveTextDownUpper(){
+function moveTextDownUpper() {
     gMoveLineUp += 5
+    drawImg2()
 }
 
-function moveTextDownLower(){
+function moveTextDownLower() {
     gMoveLineDown += 5
+    drawImg2()
 }
 
-function changeFont(name){
+function changeFont(name) {
     gCurrShape = name
     gFont = 'emoji'
+    toggleSelectFont(value,className)
 }
 
 function drawChar(txt, x, y) {
-    
+
     gCtx.beginPath()
     gCtx.textBaseline = 'middle';
     gCtx.textAlign = 'center';
     gCtx.lineWidth = 1;
-    gCtx.font = gShapeSize + 'px '+ gFont ;
+    gCtx.font = gShapeSize + 'px ' + gFont;
     gCtx.fillStyle = gFillColor;
     gCtx.fillText(txt, x, y);
     gCtx.strokeStyle = gColor;
@@ -291,45 +293,7 @@ function drawChar(txt, x, y) {
     gCtx.closePath()
 }
 
-function openCanvas(){
-    document.querySelector('.offcanvas-btn').classList.toggle('offcanvas-btn-open');
-    document.querySelector('.offcanvas-aside').classList.toggle('offcanvas-aside-open'); 
-    console.log('hello')   
-}
 
-function renderModalTwo() {
-    const strHTML = `
-        <div class="adjust-rating">
-        <button class="buttons" onclick="uploadImg()">Upload Image from Canvas</button>
-
-        <button class="buttons download" onclick="downloadCanvas(this)" download="cool-canvas">Download</button>
-          <button class="buttons" >+</button>
-        </div>
-        <button class="buttons" onclick="onCloseModal()">Close</button>
-      `
-  
-    var elModal = document.querySelector('.modal')
-    elModal.innerHTML = strHTML
-    elModal.classList.add('shown')
-}
-
-function renderModalThree() {
-    const strHTML = `
-        <div class="memes">
-          <button>share on FB</button>
-          <button >+</button>
-        </div>
-        <button class="action-btn" onclick="onCloseModal()">Close</button>
-      `
-  
-    var elModal = document.querySelector('.modal')
-    elModal.innerHTML = strHTML
-    elModal.classList.add('shown')
-}
-
-function onCloseModal(){
-    document.querySelector('.modal').classList.remove('shown')
-}
 
 //
 
@@ -355,9 +319,9 @@ function doUploadImg(imgDataUrl, onSuccess) {
     formData.append('img', imgDataUrl)
 
     fetch('//ca-upload.com/here/upload.php', {
-            method: 'POST',
-            body: formData
-        })
+        method: 'POST',
+        body: formData
+    })
         .then(res => res.text())
         .then((url) => {
             console.log('Got back live url:', url);
@@ -370,6 +334,7 @@ function doUploadImg(imgDataUrl, onSuccess) {
 
 function onImgInput(ev) {
     loadImageFromInput(ev, renderImg)
+    resizeCanvas();
 }
 
 function loadImageFromInput(ev, onImageReady) {

@@ -10,7 +10,7 @@
 </head>
 
 <body onload="init()">
-    <header  class="main-header-container full main-layout">
+    <header class="main-header-container full main-layout">
         <div class="main-header flex space-between align-center">
             <div class="logo main-logo">Meme-Gen<span class="logo-dot">.</span></div>
             <nav class="main-nav">
@@ -22,18 +22,103 @@
             </nav>
         </div>
     </header>
-    
+
     <div class="grid">
     </div>
 
+
+    <section id="openModal" class="modalDialog hidden inactive">
+        <div class="grid-editor">
+            <div class="canvas-container">
+                <canvas class="canvas" id="my-canvas" height="500" width="500" onclick="draw(event)"></canvas>
+            </div>
+            <div class="item1">
+            
+                <input 
+                    data-placeholdertrans="enter-text"
+                    type="text" 
+                    class="text-input" 
+                  
+                    oninput="onEnterTextDown(this)"
+                    placeholder="Enter text here..."
+                    autofocus/> 
+                <input 
+                    type="text" 
+                    class="text-input2" 
+                    oninput="onEnterTextUp(this)" 
+                    placeholder="Enter text here..."
+                    autofocus/> 
+                
+                <div class="upper-buttons">
+                    <button class="buttons" onclick="onChangeKey()">Clear Meme</button>
+                <input class="buttons select" oninput="onChangeColor()" type="color" id="color" name="color" form="frmRegister" value="#080808" />
+                <input class="buttons select" oninput="onChangeFillColor()" type="color" id="fill-color" name="fill-color" form="frmRegister" value="#080808" />
+                    <button class="buttons" onclick="growShapeSize()">+</button>
+                    <button class="buttons" onclick="shrinkShapeSize()">-</button>
+                    <button class="buttons" onclick="moveTextUpUpper()">1st up</button>
+                    <button class="buttons" onclick="moveTextUpLower()">2nd up</button>
+                    <button class="buttons" onclick="moveTextDownUpper()">1st down</button>
+                    <button class="buttons" onclick="moveTextDownLower()">2nd down</button>
+                </div>
+
+                <form class="emojis">
+                    <label for="emoji" class="emoji-text">Select emoji</label>
+                    <select name="emoji" class="emoji-select-text" onchange="changeFont(this.value, this.className)">
+                        <option value="a" class="buttons emoji">a</option>>
+                        <option value="b" class="buttons emoji">b</option>>
+                        <option value="c" class="buttons emoji">c</option>>
+                        <option value="d" class="buttons emoji">d</option>>         
+                        <option value="e" class="buttons emoji">e</option>>
+                        <option value="f" class="buttons emoji">f</option>>
+                        <option value="g" class="buttons emoji">g</option>>
+                        <option value="h" class="buttons emoji">h</option>>
+                        <option value="i" class="buttons emoji">i</option>>
+                        <option value="j" class="buttons emoji">j</option>>
+                        <option value="k" class="buttons emoji">k</option>>
+                        <option value="l" class="buttons emoji">l</option>>
+                        <option value="m" class="buttons emoji">m</option>>
+                    </select>
+                </form>
+                <!-- <button class="buttons emoji" name="a" onclick="changeFont(this.name)">a</button>
+                <button class="buttons emoji" name="b" onclick="changeFont(this.name)">b</button>
+                <button class="buttons emoji" name="c" onclick="changeFont(this.name)">c</button>
+                <button class="buttons emoji" name="d" onclick="changeFont(this.name)">d</button>
+                <button class="buttons emoji" name="e" onclick="changeFont(this.name)">e</button>
+                <button class="buttons emoji" name="f" onclick="changeFont(this.name)">f</button>
+                <button class="buttons emoji" name="g" onclick="changeFont(this.name)">g</button>
+                <button class="buttons emoji" name="h" onclick="changeFont(this.name)">h</button><br></br> -->
+                <form class="font">
+                    <label for="font" class="font-text">Select a font</label>
+                    <select name="font" class="font-select-text" onchange="onChangeFont(this.value, this.className)">
+                        <option value="option-1" class="option-1">option-1</option>>
+                        <option value="option-2" class="option-2">option-2</option>>
+                        <option value="option-3" class="option-3">option-3</option>>
+                        <option value="option-4" class="option-4">option-4</option>>         
+                        <option value="option-5" class="option-5">option-5</option>>
+                        <option value="option-6" class="option-6">option-6</option>>
+                    </select>
+                </form>
+                <button class="buttons download" href="#" onclick="downloadCanvas(this)" download="cool-canvas">Download</button>
+                <button class="buttons" onClick="renderModalTwo()">Share</button>
+                <input type="file" class="buttons" name="image" onchange="onImgInput(event)" />
+                <p class="user-msg"></p>
+                <div class="share-container"></div>
+            </div>
+    
+        </div>
+        <a onclick="onCloseModal()" href="#close" title="Close"><span class="exit">X</span></a>
+    </section>
+
+    <div class="modal"></div>
+    <div class="saved-memes grid"></div>
+    
 </body>
-<div class="modal"></div>
-<div class="saved-memes grid"></div>
+
+
 
 
 <script src="js/main.js"></script>
 <script src="js/meme.controller.js"></script>
 <script src="js/services/canvas.service.js"></script>
-
 
 </html>
